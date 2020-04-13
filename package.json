@@ -1,0 +1,48 @@
+{
+  "name": "top-three-things",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3600",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@now/node": "^1.5.0",
+    "@types/lodash": "^4.14.149",
+    "autoprefixer": "^9.7.6",
+    "classnames": "^2.2.6",
+    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-optipng": "^7.1.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "next": "9.3.4",
+    "next-compose-plugins": "^2.2.0",
+    "next-optimized-images": "^2.5.7",
+    "next-seo": "^4.4.0",
+    "next-svgr": "^0.0.2",
+    "postcss-import": "^12.0.1",
+    "prism-themes": "^1.4.0",
+    "prop-types": "^15.7.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-spring": "^8.0.27",
+    "tailwindcss": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/node": "^13.11.1",
+    "@types/react": "^16.9.34",
+    "husky": "^4.2.5",
+    "now": "^17.1.1",
+    "prettier": "^2.0.4",
+    "pretty-quick": "^2.0.1",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "license": "MIT"
+}
