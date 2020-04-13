@@ -2,12 +2,18 @@ import React from 'react'
 import { NextSeo } from 'next-seo'
 
 import { Body } from './Body'
+import { User } from '../../lib/user'
 
 const TITLE = 'Top Three Things | Get. Things. Done'
 const DESCRIPTION =
   "The most effective way to get things done, is starting your day by setting three targets to achieve. Get the app and let's do this together."
 
-const Home = () => (
+type Props = {
+  user: User
+  isUserLoading: boolean
+}
+
+const Home = ({ user, isUserLoading }: Props) => (
   <>
     <NextSeo
       title={TITLE}
@@ -17,7 +23,7 @@ const Home = () => (
         description: DESCRIPTION,
       }}
     />
-    <Body />
+    <Body user={user} isUserLoading={isUserLoading} />
   </>
 )
 

@@ -1,0 +1,6 @@
+{
+  "env": {
+    "AUTH0_CLIENT_SECRET": "@auth0-client-secret",
+    "SESSION_COOKIE_SECRET": "@session-cookie-secret"
+  }
+}
