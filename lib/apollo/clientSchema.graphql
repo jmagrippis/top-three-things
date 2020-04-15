@@ -1,0 +1,14 @@
+type LocalThings {
+  id: Int!
+  name: String!
+  done: Boolean!
+  description: String
+}
+
+extend type query_root {
+  localThings: [LocalThings!]!
+}
+
+type Mutation {
+  addLocalThing(name: String!): LocalThings
+}
