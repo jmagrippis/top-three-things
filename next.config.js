@@ -21,5 +21,8 @@ module.exports = withPlugins(
       POST_LOGOUT_REDIRECT_URI: 'https://topthreethings.com',
       SESSION_COOKIE_LIFETIME: '7200',
     },
+    publicRuntimeConfig: {
+      graphqlEndpoint: 'https://top-three-things.herokuapp.com/v1/graphql',
+    },
   }
 )

@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { AppProps } from 'next/app'
 import { DefaultSeo } from 'next-seo'
+import { ApolloProvider } from '@apollo/client'
 
 import logo from './logo.png'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { useFetchUser } from '../lib/user'
+import { apolloClient } from '../lib/apollo/client'
 
 const rootUrl = 'https://topthreethings.com'
 
@@ -33,11 +35,13 @@ export const App = ({ Component, pageProps }: AppProps) => {
           cardType: 'summary',
         }}
       />
-      <div className="w-full flex flex-grow flex-col items-center justify-between">
-        <Header user={user} />
-        <Component {...pageProps} user={user} isUserLoading={loading} />
-        <Footer />
-      </div>
+      <ApolloProvider client={apolloClient}>
+        <div className="w-full flex flex-grow flex-col items-center justify-between">
+          <Header user={user} />
+          <Component {...pageProps} user={user} isUserLoading={loading} />
+          <Footer />
+        </div>
+      </ApolloProvider>
     </>
   )
 }

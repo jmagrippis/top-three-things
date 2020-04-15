@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { User } from '../../lib/user'
+import { Things } from './Things'
 
 type Props = {
   user: User
@@ -23,5 +24,6 @@ export const Body = ({ user, isUserLoading }: Props) => (
     ) : (
       <p>You are not logged-in.</p>
     )}
+    <Things />
   </main>
 )
