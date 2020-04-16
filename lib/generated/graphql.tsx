@@ -370,7 +370,8 @@ export type Uuid_Comparison_Exp = {
 
 export type AddAnonymousThingMutationVariables = {
   name: Scalars['String']
-  anonymous_user_id: Scalars['uuid']
+  anonymousUserId: Scalars['uuid']
+  dateHash: Scalars['String']
 }
 
 export type AddAnonymousThingMutation = { __typename?: 'mutation_root' } & {
@@ -406,6 +407,7 @@ export type AnonymousUserIdQuery = { __typename?: 'query_root' } & Pick<
 
 export type AnonymousThingsQueryVariables = {
   anonymousUserId: Scalars['uuid']
+  dateHash: Scalars['String']
 }
 
 export type AnonymousThingsQuery = { __typename?: 'query_root' } & {
@@ -418,9 +420,17 @@ export type AnonymousThingsQuery = { __typename?: 'query_root' } & {
 }
 
 export const AddAnonymousThingDocument = gql`
-  mutation AddAnonymousThing($name: String!, $anonymous_user_id: uuid!) {
+  mutation AddAnonymousThing(
+    $name: String!
+    $anonymousUserId: uuid!
+    $dateHash: String!
+  ) {
     insert_anonymous_things(
-      objects: { name: $name, anonymous_user_id: $anonymous_user_id }
+      objects: {
+        name: $name
+        anonymous_user_id: $anonymousUserId
+        date_hash: $dateHash
+      }
     ) {
       returning {
         id
@@ -616,8 +626,13 @@ export type AnonymousUserIdQueryResult = ApolloReactCommon.QueryResult<
   AnonymousUserIdQueryVariables
 >
 export const AnonymousThingsDocument = gql`
-  query AnonymousThings($anonymousUserId: uuid!) {
-    anonymous_things(where: { anonymous_user_id: { _eq: $anonymousUserId } }) {
+  query AnonymousThings($anonymousUserId: uuid!, $dateHash: String!) {
+    anonymous_things(
+      where: {
+        anonymous_user_id: { _eq: $anonymousUserId }
+        date_hash: { _eq: $dateHash }
+      }
+    ) {
       id
       name
       done

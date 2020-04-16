@@ -7,8 +7,13 @@ export const ANONYMOUS_USER_ID = gql`
 `
 
 export const ANONYMOUS_THINGS = gql`
-  query AnonymousThings($anonymousUserId: uuid!) {
-    anonymous_things(where: { anonymous_user_id: { _eq: $anonymousUserId } }) {
+  query AnonymousThings($anonymousUserId: uuid!, $dateHash: String!) {
+    anonymous_things(
+      where: {
+        anonymous_user_id: { _eq: $anonymousUserId }
+        date_hash: { _eq: $dateHash }
+      }
+    ) {
       id
       name
       done

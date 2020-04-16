@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client'
 import { Thing } from '../Home/Thing'
 import { Guide } from '../Home/Guide'
 import { ANONYMOUS_THINGS } from '../../lib/apollo/queries'
+import { getDateHash } from '../../lib/getDateHash'
 
 type Props = {
   anonymousUserId: string
@@ -11,7 +12,7 @@ type Props = {
 
 export const AnonymousThings = ({ anonymousUserId }: Props) => {
   const { loading, error, data } = useQuery(ANONYMOUS_THINGS, {
-    variables: { anonymousUserId },
+    variables: { anonymousUserId, dateHash: getDateHash() },
   })
 
   if (loading) return <p>Loading...</p>

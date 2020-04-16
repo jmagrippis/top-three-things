@@ -3,6 +3,7 @@ import { useMutation, gql } from '@apollo/client'
 import { sample } from 'lodash'
 
 import { ANONYMOUS_THINGS } from '../../lib/apollo/queries'
+import { getDateHash } from '../../lib/getDateHash'
 
 const placeholders = [
   'nail guitar solo',
@@ -25,9 +26,17 @@ const placeholders = [
 ]
 
 const ADD_ANONYMOUS_THING = gql`
-  mutation AddAnonymousThing($name: String!, $anonymous_user_id: uuid!) {
+  mutation AddAnonymousThing(
+    $name: String!
+    $anonymousUserId: uuid!
+    $dateHash: String!
+  ) {
     insert_anonymous_things(
-      objects: { name: $name, anonymous_user_id: $anonymous_user_id }
+      objects: {
+        name: $name
+        anonymous_user_id: $anonymousUserId
+        date_hash: $dateHash
+      }
     ) {
       returning {
         id
@@ -54,11 +63,11 @@ export const AddAnonymousThing = ({ label, anonymousUserId }: Props) => {
     ) {
       const { anonymous_things } = cache.readQuery({
         query: ANONYMOUS_THINGS,
-        variables: { anonymousUserId },
+        variables: { anonymousUserId, dateHash: getDateHash() },
       })
       cache.writeQuery({
         query: ANONYMOUS_THINGS,
-        variables: { anonymousUserId },
+        variables: { anonymousUserId, dateHash: getDateHash() },
         data: { anonymous_things: [...anonymous_things, newThing] },
       })
     },
@@ -73,7 +82,11 @@ export const AddAnonymousThing = ({ label, anonymousUserId }: Props) => {
     } = input
     input.current.value = ''
     addAnonymousThing({
-      variables: { name: value, anonymous_user_id: anonymousUserId },
+      variables: {
+        name: value,
+        dateHash: getDateHash(),
+        anonymousUserId,
+      },
     })
   }
 
