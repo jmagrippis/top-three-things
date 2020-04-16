@@ -48,6 +48,156 @@ export type String_Comparison_Exp = {
   _similar?: Maybe<Scalars['String']>
 }
 
+/** columns and relationships of "anonymous_things" */
+export type Anonymous_Things = {
+  __typename?: 'anonymous_things'
+  anonymous_user_id: Scalars['uuid']
+  created_at: Scalars['timestamptz']
+  date_hash: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  done: Scalars['Boolean']
+  id: Scalars['uuid']
+  name: Scalars['String']
+}
+
+/** input type for inserting array relation for remote table "anonymous_things" */
+export type Anonymous_Things_Arr_Rel_Insert_Input = {
+  data: Array<Anonymous_Things_Insert_Input>
+  on_conflict?: Maybe<Anonymous_Things_On_Conflict>
+}
+
+/** Boolean expression to filter rows from the table "anonymous_things". All fields are combined with a logical 'AND'. */
+export type Anonymous_Things_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Anonymous_Things_Bool_Exp>>>
+  _not?: Maybe<Anonymous_Things_Bool_Exp>
+  _or?: Maybe<Array<Maybe<Anonymous_Things_Bool_Exp>>>
+  anonymous_user_id?: Maybe<Uuid_Comparison_Exp>
+  created_at?: Maybe<Timestamptz_Comparison_Exp>
+  date_hash?: Maybe<String_Comparison_Exp>
+  description?: Maybe<String_Comparison_Exp>
+  done?: Maybe<Boolean_Comparison_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
+  name?: Maybe<String_Comparison_Exp>
+}
+
+/** unique or primary key constraints on table "anonymous_things" */
+export enum Anonymous_Things_Constraint {
+  /** unique or primary key constraint */
+  AnonymousThingsPkey = 'anonymous_things_pkey',
+}
+
+/** input type for inserting data into table "anonymous_things" */
+export type Anonymous_Things_Insert_Input = {
+  anonymous_user_id?: Maybe<Scalars['uuid']>
+  date_hash?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
+  done?: Maybe<Scalars['Boolean']>
+  id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+}
+
+/** response of any mutation on the table "anonymous_things" */
+export type Anonymous_Things_Mutation_Response = {
+  __typename?: 'anonymous_things_mutation_response'
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int']
+  /** data of the affected rows by the mutation */
+  returning: Array<Anonymous_Things>
+}
+
+/** input type for inserting object relation for remote table "anonymous_things" */
+export type Anonymous_Things_Obj_Rel_Insert_Input = {
+  data: Anonymous_Things_Insert_Input
+  on_conflict?: Maybe<Anonymous_Things_On_Conflict>
+}
+
+/** on conflict condition type for table "anonymous_things" */
+export type Anonymous_Things_On_Conflict = {
+  constraint: Anonymous_Things_Constraint
+  update_columns: Array<Anonymous_Things_Update_Column>
+  where?: Maybe<Anonymous_Things_Bool_Exp>
+}
+
+/** ordering options when selecting data from "anonymous_things" */
+export type Anonymous_Things_Order_By = {
+  anonymous_user_id?: Maybe<Order_By>
+  created_at?: Maybe<Order_By>
+  date_hash?: Maybe<Order_By>
+  description?: Maybe<Order_By>
+  done?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  name?: Maybe<Order_By>
+}
+
+/** select columns of table "anonymous_things" */
+export enum Anonymous_Things_Select_Column {
+  /** column name */
+  AnonymousUserId = 'anonymous_user_id',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  DateHash = 'date_hash',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Done = 'done',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+}
+
+/** input type for updating data in table "anonymous_things" */
+export type Anonymous_Things_Set_Input = {
+  date_hash?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
+  done?: Maybe<Scalars['Boolean']>
+  id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+}
+
+/** update columns of table "anonymous_things" */
+export enum Anonymous_Things_Update_Column {
+  /** column name */
+  DateHash = 'date_hash',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Done = 'done',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+}
+
+/** mutation root */
+export type Mutation_Root = {
+  __typename?: 'mutation_root'
+  /** delete data from the table: "anonymous_things" */
+  delete_anonymous_things?: Maybe<Anonymous_Things_Mutation_Response>
+  /** insert data into the table: "anonymous_things" */
+  insert_anonymous_things?: Maybe<Anonymous_Things_Mutation_Response>
+  /** update data of the table: "anonymous_things" */
+  update_anonymous_things?: Maybe<Anonymous_Things_Mutation_Response>
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Anonymous_ThingsArgs = {
+  where: Anonymous_Things_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Anonymous_ThingsArgs = {
+  objects: Array<Anonymous_Things_Insert_Input>
+  on_conflict?: Maybe<Anonymous_Things_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Anonymous_ThingsArgs = {
+  _set?: Maybe<Anonymous_Things_Set_Input>
+  where: Anonymous_Things_Bool_Exp
+}
+
 /** column ordering options */
 export enum Order_By {
   /** in the ascending order, nulls last */
@@ -67,15 +217,29 @@ export enum Order_By {
 /** query root */
 export type Query_Root = {
   __typename?: 'query_root'
-  localThings: Array<LocalThings>
+  anonymousUserId?: Maybe<Scalars['String']>
+  /** fetch data from the table: "anonymous_things" */
+  anonymous_things: Array<Anonymous_Things>
+  /** fetch data from the table: "anonymous_things" using primary key columns */
+  anonymous_things_by_pk?: Maybe<Anonymous_Things>
   /** fetch data from the table: "rewards" */
   rewards: Array<Rewards>
   /** fetch data from the table: "rewards" using primary key columns */
   rewards_by_pk?: Maybe<Rewards>
-  /** fetch data from the table: "things" */
-  things: Array<Things>
-  /** fetch data from the table: "things" using primary key columns */
-  things_by_pk?: Maybe<Things>
+}
+
+/** query root */
+export type Query_RootAnonymous_ThingsArgs = {
+  distinct_on?: Maybe<Array<Anonymous_Things_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Anonymous_Things_Order_By>>
+  where?: Maybe<Anonymous_Things_Bool_Exp>
+}
+
+/** query root */
+export type Query_RootAnonymous_Things_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 /** query root */
@@ -89,20 +253,6 @@ export type Query_RootRewardsArgs = {
 
 /** query root */
 export type Query_RootRewards_By_PkArgs = {
-  id: Scalars['uuid']
-}
-
-/** query root */
-export type Query_RootThingsArgs = {
-  distinct_on?: Maybe<Array<Things_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Things_Order_By>>
-  where?: Maybe<Things_Bool_Exp>
-}
-
-/** query root */
-export type Query_RootThings_By_PkArgs = {
   id: Scalars['uuid']
 }
 
@@ -154,14 +304,28 @@ export enum Rewards_Select_Column {
 /** subscription root */
 export type Subscription_Root = {
   __typename?: 'subscription_root'
+  /** fetch data from the table: "anonymous_things" */
+  anonymous_things: Array<Anonymous_Things>
+  /** fetch data from the table: "anonymous_things" using primary key columns */
+  anonymous_things_by_pk?: Maybe<Anonymous_Things>
   /** fetch data from the table: "rewards" */
   rewards: Array<Rewards>
   /** fetch data from the table: "rewards" using primary key columns */
   rewards_by_pk?: Maybe<Rewards>
-  /** fetch data from the table: "things" */
-  things: Array<Things>
-  /** fetch data from the table: "things" using primary key columns */
-  things_by_pk?: Maybe<Things>
+}
+
+/** subscription root */
+export type Subscription_RootAnonymous_ThingsArgs = {
+  distinct_on?: Maybe<Array<Anonymous_Things_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Anonymous_Things_Order_By>>
+  where?: Maybe<Anonymous_Things_Bool_Exp>
+}
+
+/** subscription root */
+export type Subscription_RootAnonymous_Things_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 /** subscription root */
@@ -176,70 +340,6 @@ export type Subscription_RootRewardsArgs = {
 /** subscription root */
 export type Subscription_RootRewards_By_PkArgs = {
   id: Scalars['uuid']
-}
-
-/** subscription root */
-export type Subscription_RootThingsArgs = {
-  distinct_on?: Maybe<Array<Things_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Things_Order_By>>
-  where?: Maybe<Things_Bool_Exp>
-}
-
-/** subscription root */
-export type Subscription_RootThings_By_PkArgs = {
-  id: Scalars['uuid']
-}
-
-/** columns and relationships of "things" */
-export type Things = {
-  __typename?: 'things'
-  created_at: Scalars['timestamptz']
-  description?: Maybe<Scalars['String']>
-  done: Scalars['Boolean']
-  id: Scalars['uuid']
-  name: Scalars['String']
-  user_id: Scalars['String']
-}
-
-/** Boolean expression to filter rows from the table "things". All fields are combined with a logical 'AND'. */
-export type Things_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Things_Bool_Exp>>>
-  _not?: Maybe<Things_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Things_Bool_Exp>>>
-  created_at?: Maybe<Timestamptz_Comparison_Exp>
-  description?: Maybe<String_Comparison_Exp>
-  done?: Maybe<Boolean_Comparison_Exp>
-  id?: Maybe<Uuid_Comparison_Exp>
-  name?: Maybe<String_Comparison_Exp>
-  user_id?: Maybe<String_Comparison_Exp>
-}
-
-/** ordering options when selecting data from "things" */
-export type Things_Order_By = {
-  created_at?: Maybe<Order_By>
-  description?: Maybe<Order_By>
-  done?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  name?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
-/** select columns of table "things" */
-export enum Things_Select_Column {
-  /** column name */
-  CreatedAt = 'created_at',
-  /** column name */
-  Description = 'description',
-  /** column name */
-  Done = 'done',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  UserId = 'user_id',
 }
 
 /** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
@@ -268,30 +368,21 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>
 }
 
-export type LocalThings = {
-  __typename?: 'LocalThings'
-  id: Scalars['Int']
+export type AddAnonymousThingMutationVariables = {
   name: Scalars['String']
-  done: Scalars['Boolean']
-  description?: Maybe<Scalars['String']>
+  anonymous_user_id: Scalars['uuid']
 }
 
-export type Mutation = {
-  __typename?: 'Mutation'
-  addLocalThing?: Maybe<LocalThings>
-}
-
-export type MutationAddLocalThingArgs = {
-  name: Scalars['String']
-}
-
-export type AddThingMutationVariables = {
-  name: Scalars['String']
-}
-
-export type AddThingMutation = { __typename?: 'Mutation' } & {
-  addLocalThing?: Maybe<
-    { __typename?: 'LocalThings' } & Pick<LocalThings, 'id'>
+export type AddAnonymousThingMutation = { __typename?: 'mutation_root' } & {
+  insert_anonymous_things?: Maybe<
+    { __typename?: 'anonymous_things_mutation_response' } & {
+      returning: Array<
+        { __typename?: 'anonymous_things' } & Pick<
+          Anonymous_Things,
+          'id' | 'name' | 'done'
+        >
+      >
+    }
   >
 }
 
@@ -306,87 +397,101 @@ export type RewardsQuery = { __typename?: 'query_root' } & {
   >
 }
 
-export type ThingsQueryVariables = {}
+export type AnonymousUserIdQueryVariables = {}
 
-export type ThingsQuery = { __typename?: 'query_root' } & {
-  things: Array<{ __typename?: 'things' } & Pick<Things, 'id' | 'name'>>
+export type AnonymousUserIdQuery = { __typename?: 'query_root' } & Pick<
+  Query_Root,
+  'anonymousUserId'
+>
+
+export type AnonymousThingsQueryVariables = {
+  anonymousUserId: Scalars['uuid']
 }
 
-export type LocalThingsQueryVariables = {}
-
-export type LocalThingsQuery = { __typename?: 'query_root' } & {
-  localThings: Array<
-    { __typename?: 'LocalThings' } & Pick<
-      LocalThings,
-      'id' | 'name' | 'description' | 'done'
+export type AnonymousThingsQuery = { __typename?: 'query_root' } & {
+  anonymous_things: Array<
+    { __typename?: 'anonymous_things' } & Pick<
+      Anonymous_Things,
+      'id' | 'name' | 'done'
     >
   >
 }
 
-export const AddThingDocument = gql`
-  mutation AddThing($name: String!) {
-    addLocalThing(name: $name) @client {
-      id
+export const AddAnonymousThingDocument = gql`
+  mutation AddAnonymousThing($name: String!, $anonymous_user_id: uuid!) {
+    insert_anonymous_things(
+      objects: { name: $name, anonymous_user_id: $anonymous_user_id }
+    ) {
+      returning {
+        id
+        name
+        done
+      }
     }
   }
 `
-export type AddThingMutationFn = ApolloReactCommon.MutationFunction<
-  AddThingMutation,
-  AddThingMutationVariables
+export type AddAnonymousThingMutationFn = ApolloReactCommon.MutationFunction<
+  AddAnonymousThingMutation,
+  AddAnonymousThingMutationVariables
 >
-export type AddThingComponentProps = Omit<
+export type AddAnonymousThingComponentProps = Omit<
   ApolloReactComponents.MutationComponentOptions<
-    AddThingMutation,
-    AddThingMutationVariables
+    AddAnonymousThingMutation,
+    AddAnonymousThingMutationVariables
   >,
   'mutation'
 >
 
-export const AddThingComponent = (props: AddThingComponentProps) => (
-  <ApolloReactComponents.Mutation<AddThingMutation, AddThingMutationVariables>
-    mutation={AddThingDocument}
+export const AddAnonymousThingComponent = (
+  props: AddAnonymousThingComponentProps
+) => (
+  <ApolloReactComponents.Mutation<
+    AddAnonymousThingMutation,
+    AddAnonymousThingMutationVariables
+  >
+    mutation={AddAnonymousThingDocument}
     {...props}
   />
 )
 
-export type AddThingProps<
+export type AddAnonymousThingProps<
   TChildProps = {},
   TDataName extends string = 'mutate'
 > = {
   [key in TDataName]: ApolloReactCommon.MutationFunction<
-    AddThingMutation,
-    AddThingMutationVariables
+    AddAnonymousThingMutation,
+    AddAnonymousThingMutationVariables
   >
 } &
   TChildProps
-export function withAddThing<
+export function withAddAnonymousThing<
   TProps,
   TChildProps = {},
   TDataName extends string = 'mutate'
 >(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    AddThingMutation,
-    AddThingMutationVariables,
-    AddThingProps<TChildProps, TDataName>
+    AddAnonymousThingMutation,
+    AddAnonymousThingMutationVariables,
+    AddAnonymousThingProps<TChildProps, TDataName>
   >
 ) {
   return ApolloReactHoc.withMutation<
     TProps,
-    AddThingMutation,
-    AddThingMutationVariables,
-    AddThingProps<TChildProps, TDataName>
-  >(AddThingDocument, {
-    alias: 'addThing',
+    AddAnonymousThingMutation,
+    AddAnonymousThingMutationVariables,
+    AddAnonymousThingProps<TChildProps, TDataName>
+  >(AddAnonymousThingDocument, {
+    alias: 'addAnonymousThing',
     ...operationOptions,
   })
 }
-export type AddThingMutationResult = ApolloReactCommon.MutationResult<
-  AddThingMutation
+export type AddAnonymousThingMutationResult = ApolloReactCommon.MutationResult<
+  AddAnonymousThingMutation
 >
-export type AddThingMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  AddThingMutation,
-  AddThingMutationVariables
+export type AddAnonymousThingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddAnonymousThingMutation,
+  AddAnonymousThingMutationVariables
 >
 export const RewardsDocument = gql`
   query Rewards {
@@ -449,120 +554,133 @@ export type RewardsQueryResult = ApolloReactCommon.QueryResult<
   RewardsQuery,
   RewardsQueryVariables
 >
-export const ThingsDocument = gql`
-  query Things {
-    things {
-      id
-      name
-    }
+export const AnonymousUserIdDocument = gql`
+  query AnonymousUserId {
+    anonymousUserId @client
   }
 `
-export type ThingsComponentProps = Omit<
+export type AnonymousUserIdComponentProps = Omit<
   ApolloReactComponents.QueryComponentOptions<
-    ThingsQuery,
-    ThingsQueryVariables
+    AnonymousUserIdQuery,
+    AnonymousUserIdQueryVariables
   >,
   'query'
 >
 
-export const ThingsComponent = (props: ThingsComponentProps) => (
-  <ApolloReactComponents.Query<ThingsQuery, ThingsQueryVariables>
-    query={ThingsDocument}
+export const AnonymousUserIdComponent = (
+  props: AnonymousUserIdComponentProps
+) => (
+  <ApolloReactComponents.Query<
+    AnonymousUserIdQuery,
+    AnonymousUserIdQueryVariables
+  >
+    query={AnonymousUserIdDocument}
     {...props}
   />
 )
 
-export type ThingsProps<TChildProps = {}, TDataName extends string = 'data'> = {
-  [key in TDataName]: ApolloReactHoc.DataValue<
-    ThingsQuery,
-    ThingsQueryVariables
-  >
-} &
-  TChildProps
-export function withThings<
-  TProps,
-  TChildProps = {},
-  TDataName extends string = 'data'
->(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    ThingsQuery,
-    ThingsQueryVariables,
-    ThingsProps<TChildProps, TDataName>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    ThingsQuery,
-    ThingsQueryVariables,
-    ThingsProps<TChildProps, TDataName>
-  >(ThingsDocument, {
-    alias: 'things',
-    ...operationOptions,
-  })
-}
-export type ThingsQueryResult = ApolloReactCommon.QueryResult<
-  ThingsQuery,
-  ThingsQueryVariables
->
-export const LocalThingsDocument = gql`
-  query LocalThings {
-    localThings @client {
-      id
-      name
-      description
-      done
-    }
-  }
-`
-export type LocalThingsComponentProps = Omit<
-  ApolloReactComponents.QueryComponentOptions<
-    LocalThingsQuery,
-    LocalThingsQueryVariables
-  >,
-  'query'
->
-
-export const LocalThingsComponent = (props: LocalThingsComponentProps) => (
-  <ApolloReactComponents.Query<LocalThingsQuery, LocalThingsQueryVariables>
-    query={LocalThingsDocument}
-    {...props}
-  />
-)
-
-export type LocalThingsProps<
+export type AnonymousUserIdProps<
   TChildProps = {},
   TDataName extends string = 'data'
 > = {
   [key in TDataName]: ApolloReactHoc.DataValue<
-    LocalThingsQuery,
-    LocalThingsQueryVariables
+    AnonymousUserIdQuery,
+    AnonymousUserIdQueryVariables
   >
 } &
   TChildProps
-export function withLocalThings<
+export function withAnonymousUserId<
   TProps,
   TChildProps = {},
   TDataName extends string = 'data'
 >(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    LocalThingsQuery,
-    LocalThingsQueryVariables,
-    LocalThingsProps<TChildProps, TDataName>
+    AnonymousUserIdQuery,
+    AnonymousUserIdQueryVariables,
+    AnonymousUserIdProps<TChildProps, TDataName>
   >
 ) {
   return ApolloReactHoc.withQuery<
     TProps,
-    LocalThingsQuery,
-    LocalThingsQueryVariables,
-    LocalThingsProps<TChildProps, TDataName>
-  >(LocalThingsDocument, {
-    alias: 'localThings',
+    AnonymousUserIdQuery,
+    AnonymousUserIdQueryVariables,
+    AnonymousUserIdProps<TChildProps, TDataName>
+  >(AnonymousUserIdDocument, {
+    alias: 'anonymousUserId',
     ...operationOptions,
   })
 }
-export type LocalThingsQueryResult = ApolloReactCommon.QueryResult<
-  LocalThingsQuery,
-  LocalThingsQueryVariables
+export type AnonymousUserIdQueryResult = ApolloReactCommon.QueryResult<
+  AnonymousUserIdQuery,
+  AnonymousUserIdQueryVariables
+>
+export const AnonymousThingsDocument = gql`
+  query AnonymousThings($anonymousUserId: uuid!) {
+    anonymous_things(where: { anonymous_user_id: { _eq: $anonymousUserId } }) {
+      id
+      name
+      done
+    }
+  }
+`
+export type AnonymousThingsComponentProps = Omit<
+  ApolloReactComponents.QueryComponentOptions<
+    AnonymousThingsQuery,
+    AnonymousThingsQueryVariables
+  >,
+  'query'
+> &
+  (
+    | { variables: AnonymousThingsQueryVariables; skip?: boolean }
+    | { skip: boolean }
+  )
+
+export const AnonymousThingsComponent = (
+  props: AnonymousThingsComponentProps
+) => (
+  <ApolloReactComponents.Query<
+    AnonymousThingsQuery,
+    AnonymousThingsQueryVariables
+  >
+    query={AnonymousThingsDocument}
+    {...props}
+  />
+)
+
+export type AnonymousThingsProps<
+  TChildProps = {},
+  TDataName extends string = 'data'
+> = {
+  [key in TDataName]: ApolloReactHoc.DataValue<
+    AnonymousThingsQuery,
+    AnonymousThingsQueryVariables
+  >
+} &
+  TChildProps
+export function withAnonymousThings<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'data'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    AnonymousThingsQuery,
+    AnonymousThingsQueryVariables,
+    AnonymousThingsProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withQuery<
+    TProps,
+    AnonymousThingsQuery,
+    AnonymousThingsQueryVariables,
+    AnonymousThingsProps<TChildProps, TDataName>
+  >(AnonymousThingsDocument, {
+    alias: 'anonymousThings',
+    ...operationOptions,
+  })
+}
+export type AnonymousThingsQueryResult = ApolloReactCommon.QueryResult<
+  AnonymousThingsQuery,
+  AnonymousThingsQueryVariables
 >

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { User } from '../../lib/user'
-import { Things } from './Things'
-import { LocalThings } from './LocalThings'
+import { AuthFlow } from './AuthFlow'
+import { AnonymousFlow } from '../AnonymousFlow/AnonymousFlow'
 
 type Props = {
   user: User
@@ -14,6 +14,6 @@ export const Body = ({ user, isUserLoading }: Props) => (
     <h2 className="text-2xl font-semibold mb-2">Get. Things. Done.</h2>
 
     {isUserLoading && <p>Checking whether you are logged-in already...</p>}
-    {!isUserLoading && user ? <Things /> : <LocalThings />}
+    {!isUserLoading && user ? <AuthFlow /> : <AnonymousFlow />}
   </main>
 )

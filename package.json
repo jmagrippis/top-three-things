@@ -33,7 +33,9 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-spring": "^8.0.27",
-    "tailwindcss": "^1.2.0"
+    "store2": "^2.11.1",
+    "tailwindcss": "^1.2.0",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.13.2",
@@ -45,6 +47,7 @@
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.11.1",
     "@types/react": "^16.9.34",
+    "@types/uuid": "^7.0.2",
     "husky": "^4.2.5",
     "now": "^18.0.0",
     "prettier": "^2.0.4",

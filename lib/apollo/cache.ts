@@ -1,12 +1,16 @@
 import { InMemoryCache } from '@apollo/client'
+import store from 'store2'
+import { v4 } from 'uuid'
 
-import { LOCAL_THINGS } from './queries'
+import { ANONYMOUS_USER_ID } from './queries'
+
+export const ANONYMOUS_USER_ID_KEY = 'anonymousUserId'
 
 export const cache = new InMemoryCache()
 
 cache.writeQuery({
-  query: LOCAL_THINGS,
+  query: ANONYMOUS_USER_ID,
   data: {
-    localThings: [],
+    anonymousUserId: store.get(ANONYMOUS_USER_ID_KEY, v4()),
   },
 })
