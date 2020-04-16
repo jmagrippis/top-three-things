@@ -5,10 +5,11 @@ import { Rewards } from './Rewards/Rewards'
 
 type Props = {
   things: any[]
+  commitmentId: string
   anonymousUserId: string
 }
 
-export const Guide = ({ things, anonymousUserId }: Props) => {
+export const Guide = ({ things, commitmentId, anonymousUserId }: Props) => {
   switch (things.length) {
     case 0:
       return (
@@ -19,6 +20,7 @@ export const Guide = ({ things, anonymousUserId }: Props) => {
           </p>{' '}
           <p className="mb-2">We'll help.</p>
           <AddAnonymousThing
+            commitmentId={commitmentId}
             anonymousUserId={anonymousUserId}
             label="At the end of this day, what would you absolutely want to have done?"
           />
@@ -29,6 +31,7 @@ export const Guide = ({ things, anonymousUserId }: Props) => {
         <div className="text-lg m-auto" style={{ maxWidth: '60ch' }}>
           <p className="mb-2">Great start. </p>
           <AddAnonymousThing
+            commitmentId={commitmentId}
             anonymousUserId={anonymousUserId}
             label="What else do you really need to do today?"
           />
@@ -39,6 +42,7 @@ export const Guide = ({ things, anonymousUserId }: Props) => {
         <div className="text-lg m-auto" style={{ maxWidth: '60ch' }}>
           <p className="mb-2">Nice. Let's finish strong.</p>
           <AddAnonymousThing
+            commitmentId={commitmentId}
             anonymousUserId={anonymousUserId}
             label="Write one last thing you want to accomplish today"
           />
@@ -51,7 +55,7 @@ export const Guide = ({ things, anonymousUserId }: Props) => {
           <p className="mb-6">
             Make changes now, or pick one of the rewards below to commit.
           </p>
-          <Rewards />
+          <Rewards commitmentId={commitmentId} />
         </div>
       )
     default:

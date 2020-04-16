@@ -2,7 +2,7 @@ import { FormEvent, useRef, useState } from 'react'
 import { useMutation, gql } from '@apollo/client'
 import { sample } from 'lodash'
 
-import { ANONYMOUS_THINGS } from '../../lib/apollo/queries'
+import { ANONYMOUS_COMMITMENTS } from '../../lib/apollo/queries'
 import { getDateHash } from '../../lib/getDateHash'
 
 const placeholders = [
@@ -26,17 +26,9 @@ const placeholders = [
 ]
 
 const ADD_ANONYMOUS_THING = gql`
-  mutation AddAnonymousThing(
-    $name: String!
-    $anonymousUserId: uuid!
-    $dateHash: String!
-  ) {
+  mutation AddAnonymousThing($name: String!, $commitmentId: uuid!) {
     insert_anonymous_things(
-      objects: {
-        name: $name
-        anonymous_user_id: $anonymousUserId
-        date_hash: $dateHash
-      }
+      objects: { name: $name, anonymous_commitment_id: $commitmentId }
     ) {
       returning {
         id
@@ -47,10 +39,14 @@ const ADD_ANONYMOUS_THING = gql`
   }
 `
 
-type Props = { label: string; anonymousUserId: string }
+type Props = { label: string; commitmentId: string; anonymousUserId: string }
 
-export const AddAnonymousThing = ({ label, anonymousUserId }: Props) => {
-  const [addAnonymousThing] = useMutation(ADD_ANONYMOUS_THING, {
+export const AddAnonymousThing = ({
+  label,
+  commitmentId,
+  anonymousUserId,
+}: Props) => {
+  const [addThing] = useMutation(ADD_ANONYMOUS_THING, {
     update(
       cache,
       {
@@ -61,14 +57,28 @@ export const AddAnonymousThing = ({ label, anonymousUserId }: Props) => {
         },
       }
     ) {
-      const { anonymous_things } = cache.readQuery({
-        query: ANONYMOUS_THINGS,
-        variables: { anonymousUserId, dateHash: getDateHash() },
+      const dateHash = getDateHash()
+      const {
+        anonymous_commitments: [todaysCommitment],
+      } = cache.readQuery({
+        query: ANONYMOUS_COMMITMENTS,
+        variables: { anonymousUserId, dateHash },
       })
+
       cache.writeQuery({
-        query: ANONYMOUS_THINGS,
-        variables: { anonymousUserId, dateHash: getDateHash() },
-        data: { anonymous_things: [...anonymous_things, newThing] },
+        query: ANONYMOUS_COMMITMENTS,
+        variables: { anonymousUserId, dateHash },
+        data: {
+          anonymous_commitments: [
+            {
+              ...todaysCommitment,
+              anonymous_things: [
+                ...todaysCommitment.anonymous_things,
+                newThing,
+              ],
+            },
+          ],
+        },
       })
     },
   })
@@ -81,11 +91,10 @@ export const AddAnonymousThing = ({ label, anonymousUserId }: Props) => {
       current: { value },
     } = input
     input.current.value = ''
-    addAnonymousThing({
+    addThing({
       variables: {
         name: value,
-        dateHash: getDateHash(),
-        anonymousUserId,
+        commitmentId,
       },
     })
   }

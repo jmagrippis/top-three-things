@@ -15,7 +15,11 @@ const REWARDS = gql`
   }
 `
 
-export const Rewards = () => {
+type Props = {
+  commitmentId: string
+}
+
+export const Rewards = ({ commitmentId }: Props) => {
   const { loading, error, data } = useQuery<RewardsQuery>(REWARDS)
 
   if (loading) return <p>Loading rewards...</p>
@@ -24,5 +28,5 @@ export const Rewards = () => {
     return <p>Error loading rewards :(</p>
   }
 
-  return <RewardsList rewards={data.rewards} />
+  return <RewardsList rewards={data.rewards} commitmentId={commitmentId} />
 }

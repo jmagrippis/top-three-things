@@ -5,7 +5,7 @@ import {
   getAnonymousUserId,
   setAnonymousUserId,
 } from '../../lib/anonymousUserId'
-import { AnonymousThings } from './AnonymousThings'
+import { AnonymousCommitments } from './AnonymousCommitments'
 import { ANONYMOUS_USER_ID } from '../../lib/apollo/queries'
 
 export const AnonymousFlow = () => {
@@ -23,5 +23,5 @@ export const AnonymousFlow = () => {
     return <p>Error :(</p>
   }
 
-  return <AnonymousThings anonymousUserId={data.anonymousUserId} />
+  return <AnonymousCommitments anonymousUserId={data.anonymousUserId} />
 }
