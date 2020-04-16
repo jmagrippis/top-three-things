@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 
+import { LocalThing } from './LocalThing'
 import { Guide } from './Guide'
 import { LocalThingsQuery } from '../../lib/generated/graphql'
 import { LOCAL_THINGS } from '../../lib/apollo/queries'
@@ -18,9 +19,9 @@ export const LocalThings = () => {
 
   return (
     <>
-      <ul>
+      <ul className="m-auto" style={{ maxWidth: '60ch' }}>
         {data.localThings.map(({ id, name }) => (
-          <li key={id}>{name}</li>
+          <LocalThing key={id} name={name} />
         ))}
       </ul>
       <Guide things={localThings} />

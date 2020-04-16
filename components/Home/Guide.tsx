@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { LocalThings } from '../../lib/generated/graphql'
 import { AddLocalThingForm } from './AddLocalThingForm'
+import { Rewards } from './Rewards/Rewards'
+import { LocalThings } from '../../lib/generated/graphql'
 
 type Props = {
   things: LocalThings[]
@@ -32,6 +33,16 @@ export const Guide = ({ things }: Props) => {
         <div className="text-lg m-auto" style={{ maxWidth: '60ch' }}>
           <p className="mb-2">Nice. Let's finish strong.</p>
           <AddLocalThingForm label="Write one last thing you want to accomplish today" />
+        </div>
+      )
+    case 3:
+      return (
+        <div className="text-lg m-auto" style={{ maxWidth: '60ch' }}>
+          <p className="mb-2">Great! That looks like a solid plan.</p>
+          <p className="mb-6">
+            Make changes now, or pick one of the rewards below to commit.
+          </p>
+          <Rewards />
         </div>
       )
     default:

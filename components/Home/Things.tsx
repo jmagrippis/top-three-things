@@ -1,8 +1,10 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 
+import { ThingsQuery } from '../../lib/generated/graphql'
+
 const THINGS = gql`
-  {
+  query Things {
     things {
       id
       name
@@ -11,7 +13,7 @@ const THINGS = gql`
 `
 
 export const Things = () => {
-  const { loading, error, data } = useQuery(THINGS)
+  const { loading, error, data } = useQuery<ThingsQuery>(THINGS)
 
   if (loading) return <p>Loading...</p>
   if (error) {

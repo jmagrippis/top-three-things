@@ -68,10 +68,28 @@ export enum Order_By {
 export type Query_Root = {
   __typename?: 'query_root'
   localThings: Array<LocalThings>
+  /** fetch data from the table: "rewards" */
+  rewards: Array<Rewards>
+  /** fetch data from the table: "rewards" using primary key columns */
+  rewards_by_pk?: Maybe<Rewards>
   /** fetch data from the table: "things" */
   things: Array<Things>
   /** fetch data from the table: "things" using primary key columns */
   things_by_pk?: Maybe<Things>
+}
+
+/** query root */
+export type Query_RootRewardsArgs = {
+  distinct_on?: Maybe<Array<Rewards_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Rewards_Order_By>>
+  where?: Maybe<Rewards_Bool_Exp>
+}
+
+/** query root */
+export type Query_RootRewards_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 /** query root */
@@ -88,13 +106,76 @@ export type Query_RootThings_By_PkArgs = {
   id: Scalars['uuid']
 }
 
+/** columns and relationships of "rewards" */
+export type Rewards = {
+  __typename?: 'rewards'
+  created_at: Scalars['timestamptz']
+  description: Scalars['String']
+  icon: Scalars['String']
+  id: Scalars['uuid']
+  name: Scalars['String']
+}
+
+/** Boolean expression to filter rows from the table "rewards". All fields are combined with a logical 'AND'. */
+export type Rewards_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Rewards_Bool_Exp>>>
+  _not?: Maybe<Rewards_Bool_Exp>
+  _or?: Maybe<Array<Maybe<Rewards_Bool_Exp>>>
+  created_at?: Maybe<Timestamptz_Comparison_Exp>
+  description?: Maybe<String_Comparison_Exp>
+  icon?: Maybe<String_Comparison_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
+  name?: Maybe<String_Comparison_Exp>
+}
+
+/** ordering options when selecting data from "rewards" */
+export type Rewards_Order_By = {
+  created_at?: Maybe<Order_By>
+  description?: Maybe<Order_By>
+  icon?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  name?: Maybe<Order_By>
+}
+
+/** select columns of table "rewards" */
+export enum Rewards_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Icon = 'icon',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+}
+
 /** subscription root */
 export type Subscription_Root = {
   __typename?: 'subscription_root'
+  /** fetch data from the table: "rewards" */
+  rewards: Array<Rewards>
+  /** fetch data from the table: "rewards" using primary key columns */
+  rewards_by_pk?: Maybe<Rewards>
   /** fetch data from the table: "things" */
   things: Array<Things>
   /** fetch data from the table: "things" using primary key columns */
   things_by_pk?: Maybe<Things>
+}
+
+/** subscription root */
+export type Subscription_RootRewardsArgs = {
+  distinct_on?: Maybe<Array<Rewards_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Rewards_Order_By>>
+  where?: Maybe<Rewards_Bool_Exp>
+}
+
+/** subscription root */
+export type Subscription_RootRewards_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 /** subscription root */
@@ -214,9 +295,20 @@ export type AddThingMutation = { __typename?: 'Mutation' } & {
   >
 }
 
-export type Unnamed_1_QueryVariables = {}
+export type RewardsQueryVariables = {}
 
-export type Unnamed_1_Query = { __typename?: 'query_root' } & {
+export type RewardsQuery = { __typename?: 'query_root' } & {
+  rewards: Array<
+    { __typename?: 'rewards' } & Pick<
+      Rewards,
+      'id' | 'name' | 'icon' | 'description'
+    >
+  >
+}
+
+export type ThingsQueryVariables = {}
+
+export type ThingsQuery = { __typename?: 'query_root' } & {
   things: Array<{ __typename?: 'things' } & Pick<Things, 'id' | 'name'>>
 }
 
@@ -295,6 +387,123 @@ export type AddThingMutationResult = ApolloReactCommon.MutationResult<
 export type AddThingMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddThingMutation,
   AddThingMutationVariables
+>
+export const RewardsDocument = gql`
+  query Rewards {
+    rewards {
+      id
+      name
+      icon
+      description
+    }
+  }
+`
+export type RewardsComponentProps = Omit<
+  ApolloReactComponents.QueryComponentOptions<
+    RewardsQuery,
+    RewardsQueryVariables
+  >,
+  'query'
+>
+
+export const RewardsComponent = (props: RewardsComponentProps) => (
+  <ApolloReactComponents.Query<RewardsQuery, RewardsQueryVariables>
+    query={RewardsDocument}
+    {...props}
+  />
+)
+
+export type RewardsProps<
+  TChildProps = {},
+  TDataName extends string = 'data'
+> = {
+  [key in TDataName]: ApolloReactHoc.DataValue<
+    RewardsQuery,
+    RewardsQueryVariables
+  >
+} &
+  TChildProps
+export function withRewards<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'data'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    RewardsQuery,
+    RewardsQueryVariables,
+    RewardsProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withQuery<
+    TProps,
+    RewardsQuery,
+    RewardsQueryVariables,
+    RewardsProps<TChildProps, TDataName>
+  >(RewardsDocument, {
+    alias: 'rewards',
+    ...operationOptions,
+  })
+}
+export type RewardsQueryResult = ApolloReactCommon.QueryResult<
+  RewardsQuery,
+  RewardsQueryVariables
+>
+export const ThingsDocument = gql`
+  query Things {
+    things {
+      id
+      name
+    }
+  }
+`
+export type ThingsComponentProps = Omit<
+  ApolloReactComponents.QueryComponentOptions<
+    ThingsQuery,
+    ThingsQueryVariables
+  >,
+  'query'
+>
+
+export const ThingsComponent = (props: ThingsComponentProps) => (
+  <ApolloReactComponents.Query<ThingsQuery, ThingsQueryVariables>
+    query={ThingsDocument}
+    {...props}
+  />
+)
+
+export type ThingsProps<TChildProps = {}, TDataName extends string = 'data'> = {
+  [key in TDataName]: ApolloReactHoc.DataValue<
+    ThingsQuery,
+    ThingsQueryVariables
+  >
+} &
+  TChildProps
+export function withThings<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'data'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    ThingsQuery,
+    ThingsQueryVariables,
+    ThingsProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withQuery<
+    TProps,
+    ThingsQuery,
+    ThingsQueryVariables,
+    ThingsProps<TChildProps, TDataName>
+  >(ThingsDocument, {
+    alias: 'things',
+    ...operationOptions,
+  })
+}
+export type ThingsQueryResult = ApolloReactCommon.QueryResult<
+  ThingsQuery,
+  ThingsQueryVariables
 >
 export const LocalThingsDocument = gql`
   query LocalThings {
