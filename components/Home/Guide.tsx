@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AddAnonymousThing } from '../AnonymousFlow/AddAnonymousThing'
+import { AddAnonymousThing } from './AnonymousFlow/AddAnonymousThing'
 import { Rewards } from './Rewards/Rewards'
 
 type Props = {

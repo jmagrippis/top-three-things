@@ -2,7 +2,7 @@ import React from 'react'
 
 import { User } from '../../lib/user'
 import { AuthFlow } from './AuthFlow'
-import { AnonymousFlow } from '../AnonymousFlow/AnonymousFlow'
+import { AnonymousFlow } from './AnonymousFlow/AnonymousFlow'
 
 type Props = {
   user: User

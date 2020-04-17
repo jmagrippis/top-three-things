@@ -15,10 +15,15 @@ export const ANONYMOUS_COMMITMENTS = gql`
       }
     ) {
       id
-      reward_id
       anonymous_things {
         id
         name
+      }
+      reward {
+        id
+        name
+        icon
+        description
       }
     }
   }

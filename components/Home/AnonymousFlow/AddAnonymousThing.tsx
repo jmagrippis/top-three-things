@@ -2,28 +2,9 @@ import { FormEvent, useRef, useState } from 'react'
 import { useMutation, gql } from '@apollo/client'
 import { sample } from 'lodash'
 
-import { ANONYMOUS_COMMITMENTS } from '../../lib/apollo/queries'
-import { getDateHash } from '../../lib/getDateHash'
-
-const placeholders = [
-  'nail guitar solo',
-  'graph churn rate',
-  'revamp about page',
-  'practice handstands',
-  'authentication logic',
-  'interview prep',
-  'record podcast',
-  'record narration',
-  'edit video',
-  'submit pitch',
-  'work the socials',
-  'chase Alison',
-  'meditation',
-  'stock up kitchen for dinner',
-  'finalize guest-list',
-  'automate end-of-day report',
-  'tune flux capacitor',
-]
+import { ANONYMOUS_COMMITMENTS } from '../../../lib/apollo/queries'
+import { getDateHash } from '../../../lib/getDateHash'
+import { placeholderThings } from './placeholderThings'
 
 const ADD_ANONYMOUS_THING = gql`
   mutation AddAnonymousThing($name: String!, $commitmentId: uuid!) {
@@ -83,7 +64,7 @@ export const AddAnonymousThing = ({
     },
   })
   const input = useRef<HTMLInputElement>(null)
-  const [placeholder] = useState(sample(placeholders))
+  const [placeholder] = useState(sample(placeholderThings))
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
