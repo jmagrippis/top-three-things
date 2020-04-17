@@ -34,8 +34,7 @@
     "react-dom": "16.13.1",
     "react-spring": "^8.0.27",
     "store2": "^2.11.1",
-    "tailwindcss": "^1.2.0",
-    "uuid": "^7.0.3"
+    "tailwindcss": "^1.2.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.13.2",

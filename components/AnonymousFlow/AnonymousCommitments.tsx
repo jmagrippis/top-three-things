@@ -1,30 +1,24 @@
 import React from 'react'
-import { useQuery, useMutation } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 
 import { Thing } from '../Home/Thing'
 import { Guide } from '../Home/Guide'
-import {
-  ANONYMOUS_COMMITMENTS,
-  ADD_ANONYMOUS_COMMITMENT,
-} from '../../lib/apollo/queries'
+import { ANONYMOUS_COMMITMENTS } from '../../lib/apollo/queries'
 import { getDateHash } from '../../lib/getDateHash'
+import { useAddAnonymousCommitment } from './useAddAnonymousCommitment'
 
 type Props = {
-  anonymousUserId: string
+  anonymousUserId: string | null
 }
 
 export const AnonymousCommitments = ({ anonymousUserId }: Props) => {
-  const [addCommitment] = useMutation(ADD_ANONYMOUS_COMMITMENT, {
-    refetchQueries: ['AnonymousCommitments'],
-  })
+  const addCommitment = useAddAnonymousCommitment({ anonymousUserId })
 
   const { loading, error, data } = useQuery(ANONYMOUS_COMMITMENTS, {
     variables: { anonymousUserId, dateHash: getDateHash() },
     onCompleted({ anonymous_commitments }) {
       if (!anonymous_commitments.length) {
-        addCommitment({
-          variables: { anonymousUserId, dateHash: getDateHash() },
-        })
+        addCommitment()
       }
     },
   })
@@ -39,7 +33,7 @@ export const AnonymousCommitments = ({ anonymousUserId }: Props) => {
     anonymous_commitments: [todaysCommitment],
   } = data
 
-  return todaysCommitment ? (
+  return todaysCommitment && anonymousUserId ? (
     <>
       <ul className="m-auto" style={{ maxWidth: '60ch' }}>
         {todaysCommitment.anonymous_things.map(({ id, name }) => (

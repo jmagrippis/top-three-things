@@ -25,7 +25,21 @@ export const ANONYMOUS_COMMITMENTS = gql`
 `
 
 export const ADD_ANONYMOUS_COMMITMENT = gql`
-  mutation AddAnonymousCommitment($anonymousUserId: uuid!, $dateHash: String!) {
+  mutation AddAnonymousCommitment($dateHash: String!) {
+    insert_anonymous_commitments(objects: { date_hash: $dateHash }) {
+      returning {
+        id
+        anonymous_user_id
+      }
+    }
+  }
+`
+
+export const ADD_ANONYMOUS_COMMITMENT_WITH_USER_ID = gql`
+  mutation AddAnonymousCommitmentWithUserId(
+    $anonymousUserId: uuid!
+    $dateHash: String!
+  ) {
     insert_anonymous_commitments(
       objects: { anonymous_user_id: $anonymousUserId, date_hash: $dateHash }
     ) {
