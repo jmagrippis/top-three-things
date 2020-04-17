@@ -4,9 +4,9 @@ import {
   ADD_ANONYMOUS_COMMITMENT_WITH_USER_ID,
   ADD_ANONYMOUS_COMMITMENT,
   ANONYMOUS_USER_ID,
-} from '../../../lib/apollo/queries'
-import { getDateHash } from '../../../lib/getDateHash'
-import { setAnonymousUserId } from '../../../lib/anonymousUserId'
+} from '../../../../lib/apollo/queries'
+import { getDateHash } from '../../../../lib/getDateHash'
+import { setAnonymousUserId } from '../../../../lib/anonymousUserId'
 
 export const useAddAnonymousCommitment = ({
   anonymousUserId,

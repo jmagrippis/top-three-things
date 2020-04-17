@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { iconToComponent } from './iconToComponent'
-import { RewardsQuery } from '../../../../lib/generated/graphql'
+import { RewardsQuery } from '../../../../../lib/generated/graphql'
 
 type Props = {
   reward: RewardsQuery['rewards'][0]
-  handleClick?: (rewardId: string) => void
+  handleClick: (rewardId: string) => void
 }
 
 export const PotentialReward = ({ reward, handleClick }: Props) => {

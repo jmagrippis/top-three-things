@@ -2,11 +2,11 @@ import React from 'react'
 import { useLazyQuery } from '@apollo/client'
 
 import { Thing } from '../Thing'
+import { Committed } from '../Committed'
 import { Guide } from '../Guide'
-import { ANONYMOUS_COMMITMENTS } from '../../../lib/apollo/queries'
-import { getDateHash } from '../../../lib/getDateHash'
+import { ANONYMOUS_COMMITMENTS } from '../../../../lib/apollo/queries'
+import { getDateHash } from '../../../../lib/getDateHash'
 import { useAddAnonymousCommitment } from './useAddAnonymousCommitment'
-import { Committed } from './Committed/Committed'
 
 type Props = {
   anonymousUserId: string | null
@@ -49,7 +49,10 @@ export const AnonymousCommitments = ({ anonymousUserId }: Props) => {
   return todaysCommitment && anonymousUserId ? (
     <>
       {todaysCommitment.reward ? (
-        <Committed commitment={todaysCommitment} />
+        <Committed
+          things={todaysCommitment.anonymous_things}
+          reward={todaysCommitment.reward}
+        />
       ) : (
         <>
           <ul className="m-auto p-2" style={{ maxWidth: '60ch' }}>
@@ -60,10 +63,13 @@ export const AnonymousCommitments = ({ anonymousUserId }: Props) => {
           <Guide
             things={todaysCommitment.anonymous_things}
             commitmentId={todaysCommitment.id}
-            anonymousUserId={anonymousUserId}
+            userId={anonymousUserId}
+            isAnonymous
           />
         </>
       )}
     </>
-  ) : null
+  ) : (
+    <p>Loading...</p>
+  )
 }

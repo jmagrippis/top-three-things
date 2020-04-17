@@ -29,6 +29,36 @@ export const ANONYMOUS_COMMITMENTS = gql`
   }
 `
 
+export const COMMITMENTS = gql`
+  query Commitments($userId: String!, $dateHash: String!) {
+    commitments(
+      where: { user_id: { _eq: $userId }, date_hash: { _eq: $dateHash } }
+    ) {
+      id
+      things {
+        id
+        name
+      }
+      reward {
+        id
+        name
+        icon
+        description
+      }
+    }
+  }
+`
+
+export const ADD_COMMITMENT = gql`
+  mutation AddCommitmentWithUserId($userId: String!, $dateHash: String!) {
+    insert_commitments(objects: { user_id: $userId, date_hash: $dateHash }) {
+      returning {
+        id
+      }
+    }
+  }
+`
+
 export const ADD_ANONYMOUS_COMMITMENT = gql`
   mutation AddAnonymousCommitment($dateHash: String!) {
     insert_anonymous_commitments(objects: { date_hash: $dateHash }) {

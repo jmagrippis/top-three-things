@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { sampleSize } from 'lodash'
 
-import { RewardsQuery } from '../../../lib/generated/graphql'
-import { PotentialReward } from './Reward/PotentialReward'
-import { getDateHash } from '../../../lib/getDateHash'
+import { RewardsList } from '../Rewards/RewardsList'
+import { RewardsQuery } from '../../../../lib/generated/graphql'
 import {
   ANONYMOUS_COMMITMENTS,
   ANONYMOUS_USER_ID,
-} from '../../../lib/apollo/queries'
+} from '../../../../lib/apollo/queries'
 
 const UPDATE_ANONYMOUS_COMMITMENT = gql`
   mutation UpdateAnonymousCommitment($commitmentId: uuid!, $rewardId: uuid!) {
@@ -18,6 +16,7 @@ const UPDATE_ANONYMOUS_COMMITMENT = gql`
     ) {
       returning {
         id
+        date_hash
         reward {
           id
           name
@@ -34,32 +33,30 @@ type Props = {
   commitmentId: string
 }
 
-export const RewardsList = ({ rewards, commitmentId }: Props) => {
+export const AnonymousRewardsSelect = ({ rewards, commitmentId }: Props) => {
   const { data } = useQuery(ANONYMOUS_USER_ID)
-  const [possibleRewards] = useState(sampleSize(rewards, 3))
   const [updateCommitment] = useMutation(UPDATE_ANONYMOUS_COMMITMENT, {
     update(
       cache,
       {
         data: {
           update_anonymous_commitments: {
-            returning: [{ reward }],
+            returning: [{ date_hash, reward }],
           },
         },
       }
     ) {
-      const dateHash = getDateHash()
       const { anonymousUserId } = data
       const {
         anonymous_commitments: [todaysCommitment],
       } = cache.readQuery({
         query: ANONYMOUS_COMMITMENTS,
-        variables: { anonymousUserId, dateHash },
+        variables: { anonymousUserId, dateHash: date_hash },
       })
 
       cache.writeQuery({
         query: ANONYMOUS_COMMITMENTS,
-        variables: { anonymousUserId, dateHash },
+        variables: { anonymousUserId, dateHash: date_hash },
         data: {
           anonymous_commitments: [
             {
@@ -81,15 +78,5 @@ export const RewardsList = ({ rewards, commitmentId }: Props) => {
     })
   }
 
-  return (
-    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      {possibleRewards.map((reward) => (
-        <PotentialReward
-          key={reward.id}
-          reward={reward}
-          handleClick={handleClick}
-        />
-      ))}
-    </ul>
-  )
+  return <RewardsList rewards={rewards} handleClick={handleClick} />
 }

@@ -1,10 +1,9 @@
-import { FormEvent, useRef, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useMutation, gql } from '@apollo/client'
-import { sample } from 'lodash'
 
-import { ANONYMOUS_COMMITMENTS } from '../../../lib/apollo/queries'
-import { getDateHash } from '../../../lib/getDateHash'
-import { placeholderThings } from './placeholderThings'
+import { ANONYMOUS_COMMITMENTS } from '../../../../lib/apollo/queries'
+import { getDateHash } from '../../../../lib/getDateHash'
+import { AddThingInput } from '../AddThingInput'
 
 const ADD_ANONYMOUS_THING = gql`
   mutation AddAnonymousThing($name: String!, $commitmentId: uuid!) {
@@ -63,35 +62,18 @@ export const AddAnonymousThing = ({
       })
     },
   })
-  const input = useRef<HTMLInputElement>(null)
-  const [placeholder] = useState(sample(placeholderThings))
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const {
-      current: { value },
-    } = input
-    input.current.value = ''
-    addThing({
-      variables: {
-        name: value,
-        commitmentId,
-      },
-    })
-  }
-
-  return (
-    <form onSubmit={onSubmit}>
-      <label className="mb-2 block" htmlFor="thing">
-        {label}
-      </label>
-      <input
-        ref={input}
-        name="thing"
-        className="form-input w-full px-1 py-2 rounded shadow focus:outline-none focus:shadow-outline sm:col-span-2 mb-4 sm:mb-0"
-        placeholder={placeholder}
-        required
-      />
-    </form>
+  const handleSubmit = useCallback(
+    (name: string) => {
+      addThing({
+        variables: {
+          name,
+          commitmentId,
+        },
+      })
+    },
+    [addThing, commitmentId]
   )
+
+  return <AddThingInput label={label} handleSubmit={handleSubmit} />
 }
