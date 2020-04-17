@@ -2,7 +2,6 @@ import React from 'react'
 import { gql, useMutation, useQuery } from '@apollo/client'
 
 import { RewardsList } from '../Rewards/RewardsList'
-import { RewardsQuery } from '../../../../lib/generated/graphql'
 import {
   ANONYMOUS_COMMITMENTS,
   ANONYMOUS_USER_ID,
@@ -29,7 +28,7 @@ const UPDATE_ANONYMOUS_COMMITMENT = gql`
 `
 
 type Props = {
-  rewards: RewardsQuery['rewards']
+  rewards: any
   commitmentId: string
 }
 

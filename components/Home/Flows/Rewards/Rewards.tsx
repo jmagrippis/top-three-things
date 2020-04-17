@@ -4,7 +4,6 @@ import { sampleSize } from 'lodash'
 
 import { AnonymousRewardsSelect } from '../AnonymousFlow/AnonymousRewardsSelect'
 import { RewardsSelect } from '../AuthenticatedFlow/RewardsSelect'
-import { RewardsQuery } from '../../../../lib/generated/graphql'
 
 const REWARDS = gql`
   query Rewards {
@@ -24,7 +23,7 @@ type Props = {
 
 export const Rewards = ({ commitmentId, isAnonymous }: Props) => {
   const [possibleRewards, setPossibleRewards] = useState(null)
-  const { loading, error } = useQuery<RewardsQuery>(REWARDS, {
+  const { loading, error } = useQuery(REWARDS, {
     onCompleted({ rewards }) {
       setPossibleRewards(sampleSize(rewards, 3))
     },

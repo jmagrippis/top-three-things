@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3600",
     "build": "next build",
-    "start": "next start",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "start": "next start"
   },
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.43",
@@ -37,11 +36,6 @@
     "tailwindcss": "^1.2.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.13.2",
-    "@graphql-codegen/introspection": "1.13.2",
-    "@graphql-codegen/typescript": "1.13.2",
-    "@graphql-codegen/typescript-operations": "1.13.2",
-    "@graphql-codegen/typescript-react-apollo": "1.13.2",
     "@types/classnames": "^2.2.10",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.11.1",

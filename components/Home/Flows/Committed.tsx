@@ -2,11 +2,10 @@ import React from 'react'
 
 import { Thing } from './Thing'
 import { SelectedReward } from './Rewards/Reward/SelectedReward'
-import { Anonymous_Commitments } from '../../../lib/generated/graphql'
 
 type Props = {
-  things: Anonymous_Commitments['anonymous_things']
-  reward: Anonymous_Commitments['reward']
+  things: any
+  reward: any
 }
 
 export const Committed = ({ things, reward }: Props) => (

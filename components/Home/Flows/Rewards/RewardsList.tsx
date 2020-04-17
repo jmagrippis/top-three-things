@@ -1,10 +1,9 @@
 import React from 'react'
 
 import { PotentialReward } from './Reward/PotentialReward'
-import { RewardsQuery } from '../../../../lib/generated/graphql'
 
 type Props = {
-  rewards: RewardsQuery['rewards']
+  rewards: any
   handleClick: (rewardId: string) => void
 }
 
