@@ -11,7 +11,7 @@
     "@apollo/client": "^3.0.0-beta.43",
     "@apollo/link-context": "^2.0.0-beta.3",
     "@apollo/link-error": "^2.0.0-beta.3",
-    "@auth0/nextjs-auth0": "^0.11.0",
+    "@auth0/nextjs-auth0": "^1.4.2",
     "@now/node": "^1.5.1",
     "autoprefixer": "^9.7.6",
     "classnames": "^2.2.6",
